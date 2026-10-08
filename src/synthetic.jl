@@ -59,10 +59,8 @@ Returns a `NamedTuple` `(positions, values, ids)`.
 ```jldoctest
 julia> data = bumpFrames(; n = 500, nframes = 3, flow = (1.0, 0.0));
 
-julia> data.positions[3][1] - data.positions[1][1]
-2-element StaticArraysCore.SVector{2, Float64} with indices SOneTo(2):
- 2.0
- 0.0
+julia> Tuple(data.positions[3][1] - data.positions[1][1])   # two frames of flow
+(2.0, 0.0)
 ```
 """
 function bumpFrames(; n::Integer = 2000, L::Real = 40.0, nframes::Integer = 6, σ::Real = 1.5,
