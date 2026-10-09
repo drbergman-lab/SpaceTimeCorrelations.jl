@@ -46,4 +46,5 @@ m = (length(r.centers) + 1) ÷ 2               # the bin centred on zero displac
 - [Lab frame and tissue frame](man/frames.md): what IDs change.
 - [Input formats](man/input.md): arrays, matrices, DataFrames and other tables.
 - [Toy data](man/toydata.md): generators with known answers, for exploring the method.
+- [PhysiCell output](man/physicell.md): straight from an output folder or a PCMM simulation.
 - [API reference](reference.md).

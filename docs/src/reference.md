@@ -9,3 +9,11 @@ noiseFrames
 bumpFrames
 frameTables
 ```
+
+## PhysiCell output
+
+Available after `using PhysiCellOutput`.
+
+```@docs
+spaceTimeCorrelation(::PhysiCellOutput.PhysiCellSequence)
+```

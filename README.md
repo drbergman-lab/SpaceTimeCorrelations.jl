@@ -18,6 +18,14 @@ With `id`, displacements are measured from each agent's own later position (tiss
 drifting peak means the pattern moves through the agents. Without it they are in fixed lab
 coordinates. `noiseFrames` and `bumpFrames` generate toy data with known answers.
 
+With `using PhysiCellOutput` (or `using PhysiCellModelManager`) it reads PhysiCell output
+directly:
+
+```julia
+r = spaceTimeCorrelation(PhysiCellSequence("output"; include_cells = true);
+                         value = :notch, cell_types = "rgc", lags = 0:6:60, dr = 10.0, rmax = 100.0)
+```
+
 Build the docs locally with `julia --project=docs docs/make.jl`.
 
 ## Status

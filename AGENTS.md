@@ -28,9 +28,17 @@ The docs build needs at least one commit (Documenter reads `HEAD`), not a remote
 ## Invariants
 
 - **Scope is one estimator.** No plotting, no significance tests, no PCF/Ripley's K, no
-  wavelets/DMD/optical flow, no PhysiCell-specific I/O. Plotting dependencies are out.
+  wavelets/DMD/optical flow. PhysiCell support lives only in the extensions. Plotting
+  dependencies are out.
 - **Runtime dependencies stay minimal:** NearestNeighbors, Tables, Statistics, StaticArrays,
-  Random. GeoStatsFunctions, GeoTables and Meshes are test-only (`[extras]`) and must stay so.
+  Random. PhysiCellOutput and PhysiCellModelManager are `[weakdeps]` reached through `ext/`,
+  never `[deps]`. GeoStatsFunctions, GeoTables, Meshes and PhysiCellOutput are test-only
+  (`[extras]`).
+- **PhysiCellModelManager stays out of the test environment.** It conflicts with
+  GeoStatsFunctions (Optim 1 vs 2) and is heavy; its extension is a one-line forward to the
+  PhysiCellOutput one, which is tested.
+- **Extensions are thin adapters** that end in a call to the array method. No second PhysiCell
+  reader: PhysiCellOutput loads the data.
 - **Directed displacement** `d = x_j(t + Δt) - b_i`; never symmetrise.
 - **IDs locate the base agent only.** In the tissue frame `b_i` is agent i's own position at
   `t + Δt`; partners are found by position in frame `t + Δt`. Never replace this with a global

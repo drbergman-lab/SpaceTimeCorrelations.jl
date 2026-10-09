@@ -63,3 +63,15 @@ later lag by one. Per-frame tables are also what a loop over saved snapshots pro
 
 *From [`man/input.md`](../man/input.md)*
 
+## 2026-10-08 — PhysiCell support as extensions, dead cells out by default
+
+Decided: PhysiCellOutput and PhysiCellModelManager are weak dependencies, each reached through
+a thin extension over the array method, with a `cell_types` filter.
+Decided: exclude dead cells by default, matching PhysiCellOutput's `cellDataSequence`. In the
+first test run (a cortex model) every rgc cell was marked dead for 51 frames before removal;
+including them would correlate the values of cells that have stopped signalling.
+Rejected: testing the PCMM extension here. PCMM's dependencies conflict with the
+GeoStatsFunctions cross-check (Optim 1 against Optim 2), and the extension is one line.
+
+*From [`man/physicell.md`](../man/physicell.md)*
+

@@ -9,8 +9,11 @@
 | `src/estimator.jl` | The array method of `spaceTimeCorrelation` and everything it calls: input checks, z-scoring, ID maps, the threaded accumulation. |
 | `src/tables.jl` | The table method: pulls columns out of per-frame tables and calls the array method. |
 | `src/synthetic.jl` | `noiseFrames`, `bumpFrames`, `frameTables`. |
+| `ext/SpaceTimeCorrelationsPhysiCellOutputExt.jl` | The `PhysiCellSequence` method: cell-type and dead-cell filtering, then the array method. |
+| `ext/SpaceTimeCorrelationsPhysiCellModelManagerExt.jl` | The `Simulation` method: builds the sequence and forwards. |
 | `test/runtests.jl` | Validation scenarios 1–8, unit checks, input forms, errors. |
 | `test/crosscheck_geostats.jl` | Lag-0 comparison against GeoStatsFunctions' variogram. |
+| `test/physicell.jl`, `test/fixtures/physicell_output/` | The PhysiCellOutput extension, on four real snapshots. |
 
 ## One call, start to finish
 

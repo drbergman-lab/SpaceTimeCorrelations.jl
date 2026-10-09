@@ -268,5 +268,6 @@ end
 end
 
 include("crosscheck_geostats.jl")
+include("physicell.jl")
 
 end
