@@ -11,3 +11,4 @@ SpaceTimeCorrelations = {path = ".."}
 [compat]
 Documenter = "1"
 PhysiCellOutput = "0.1"
+Random = "<0.0.1, 1"
