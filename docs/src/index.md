@@ -16,6 +16,11 @@ output, resolved by direction: `C(Δx, Δy, Δt)`.
     agents' own motion; in the **tissue frame** (available when agents carry IDs) it is the motion
     of the pattern through the agents. See [Lab frame and tissue frame](man/frames.md).
 
+```@setup index
+using SpaceTimeCorrelations
+include(joinpath(pkgdir(SpaceTimeCorrelations), "test", "synthetic.jl"))   # toy-data generators
+```
+
 ```@example index
 using SpaceTimeCorrelations, Random
 

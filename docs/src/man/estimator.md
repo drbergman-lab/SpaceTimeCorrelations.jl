@@ -67,6 +67,11 @@ displacement with each coordinate within `rmax`.
     Bins with fewer than `mincount` pairs (default 1, i.e. only empty bins) are `NaN`. Raise
     `mincount`, or mask with `r.counts`, to hide bins whose value rests on a handful of pairs.
 
+```@setup grid
+using SpaceTimeCorrelations
+include(joinpath(pkgdir(SpaceTimeCorrelations), "test", "synthetic.jl"))   # toy-data generators
+```
+
 ```@example grid
 using SpaceTimeCorrelations, Random
 data = noiseFrames(; n = 400, nframes = 3, rng = Xoshiro(1))

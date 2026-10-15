@@ -16,7 +16,7 @@ r.counts         # pairs behind each bin
 
 With `id`, displacements are measured from each agent's own later position (tissue frame), so a
 drifting peak means the pattern moves through the agents. Without it they are in fixed lab
-coordinates. `noiseFrames` and `bumpFrames` generate toy data with known answers.
+coordinates. Toy-data generators with known answers live in `test/synthetic.jl`.
 
 With `using PhysiCellOutput` (or `using PhysiCellModelManager`) it reads PhysiCell output
 directly:
@@ -30,8 +30,5 @@ Build the docs locally with `julia --project=docs docs/make.jl`.
 
 ## Status
 
-v0.1, local only. The estimator, table layer, toy-data generators and validation suite are in
-place. Open decisions:
-
-- the package name (a placeholder; see `AGENTS.md` for the rename recipe);
-- whether pooled normalisation becomes an option alongside per-frame z-scoring.
+v0.1. The estimator, table layer, PhysiCell extensions and validation suite are in place. Open
+question: whether pooled normalisation becomes an option alongside per-frame z-scoring.

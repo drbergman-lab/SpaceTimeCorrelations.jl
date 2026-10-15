@@ -1,7 +1,9 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 PhysiCellOutput = "61ac5edc-a73d-4441-b68d-d9b510422d04"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 SpaceTimeCorrelations = "86d85d88-53ee-45e5-ab94-7126e16ea410"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [sources]
 SpaceTimeCorrelations = {path = ".."}

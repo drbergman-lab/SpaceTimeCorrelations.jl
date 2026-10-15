@@ -1,12 +1,16 @@
 # The PhysiCellOutput extension. The PhysiCellModelManager extension is not tested here: it only
 # resolves a `Simulation` to a `PhysiCellSequence` and forwards, and PCMM would bring a large
 # dependency tree into the test environment. The fixture is the initial state and
-# first four snapshots (cell files only) of a 2D PhysiCell cortex run with a Notch–Delta model.
+# test data is toy output written in the PhysiCell format (physicell_output.jl): rgc cells whose
+# notch follows bumpFrames, plus fixed "layer" cells at constant notch, with a few rgc cells dead.
 
 import PhysiCellOutput
 using Tables: Tables
+include("physicell_output.jl")
 
-const FIXTURE = joinpath(@__DIR__, "fixtures", "physicell_output")
+const FIXTURE = writePhysiCellOutput(mktempdir(),
+    bumpFrames(; n = 150, L = 40.0, nframes = 4, flow = (0.5, 0.0), turnover = 0.1, rng = Xoshiro(21));
+    dead = Dict(2 => [3, 7, 11], 3 => [3, 7]))
 
 # The same selection done by hand, through the table method.
 function handtables(sequence, value, celltype)
@@ -23,6 +27,7 @@ end
 @testset "PhysiCellOutput extension" begin
     sequence = PhysiCellOutput.PhysiCellSequence(FIXTURE)   # cells not loaded yet
     @test length(sequence.snapshots) == 4
+    @test [s.time for s in sequence.snapshots] == [0.0, 10.0, 20.0, 30.0]
     kw = (lags = 0:2, dr = 10.0, rmax = 50.0)
 
     r = spaceTimeCorrelation(sequence; value = :notch, cell_types = "rgc", kw...)
@@ -37,8 +42,10 @@ end
     lab = spaceTimeCorrelation(sequence; value = "notch", cell_types = ["rgc"], id = nothing, kw...)
     @test lab.frame === :lab
     @test lab.counts[:, :, 1] == r.counts[:, :, 1]
-    both = spaceTimeCorrelation(sequence; value = :notch, cell_types = ["rgc", "apical"], kw...)
+    both = spaceTimeCorrelation(sequence; value = :notch, cell_types = ["rgc", "layer"], kw...)
     @test sum(both.counts) > sum(r.counts)
+    withdead = spaceTimeCorrelation(sequence; value = :notch, cell_types = "rgc", include_dead = true, kw...)
+    @test sum(withdead.counts) > sum(r.counts)
     all_ = spaceTimeCorrelation(sequence; value = :notch, kw...)
     @test sum(all_.counts) >= sum(both.counts)
 

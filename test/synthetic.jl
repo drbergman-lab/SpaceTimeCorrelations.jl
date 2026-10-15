@@ -1,3 +1,10 @@
+# Toy-data generators with known ground truth, used by the test suite and the documentation's
+# examples. They are not part of the package API: load them with
+#     include(joinpath(pkgdir(SpaceTimeCorrelations), "test", "synthetic.jl"))
+
+using Random: AbstractRNG, default_rng, randperm
+using StaticArrays: SVector
+
 """
     noiseFrames(; n = 400, L = 20.0, nframes = 5, rng = Random.default_rng())
 
@@ -5,10 +12,10 @@ Generate fixed agents carrying independent standard-normal values: the null case
 1 in the zero bin at lag 0 and near 0 everywhere else.
 
 Agents are placed uniformly in the square `[0, L)²` and do not move. Returns a `NamedTuple`
-`(positions, values, ids)` ready for [`spaceTimeCorrelation`](@ref).
+`(positions, values, ids)` ready for `spaceTimeCorrelation`.
 
 # Examples
-```jldoctest
+```julia
 julia> data = noiseFrames(; n = 50, nframes = 3);
 
 julia> length(data.positions), length(data.values[1]), data.ids[1][1:3]
@@ -56,7 +63,7 @@ The ground truth, for lag `k`:
 Returns a `NamedTuple` `(positions, values, ids)`.
 
 # Examples
-```jldoctest
+```julia
 julia> data = bumpFrames(; n = 500, nframes = 3, flow = (1.0, 0.0));
 
 julia> Tuple(data.positions[3][1] - data.positions[1][1])   # two frames of flow
@@ -112,13 +119,13 @@ end
     frameTables(data) -> Vector{NamedTuple}
 
 Turn generator output into one table per frame, with columns `id`, `x`, `y` and `value`, for
-exploring the table method of [`spaceTimeCorrelation`](@ref).
+exploring the table method of `spaceTimeCorrelation`.
 
 Each table is a `NamedTuple` of vectors, which any Tables.jl consumer accepts; `DataFrame.(…)`
 converts them.
 
 # Examples
-```jldoctest
+```julia
 julia> tables = frameTables(noiseFrames(; n = 10, nframes = 2));
 
 julia> length(tables), keys(tables[1]), length(tables[1].x)

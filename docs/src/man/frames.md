@@ -22,6 +22,11 @@ including the agents' motion.
 Two halves of a sheet sliding in opposite directions, carrying their values: along `Δx` at lag
 3, the lab-frame map has two peaks at `±3`, the tissue-frame map one at 0.
 
+```@setup frames
+using SpaceTimeCorrelations
+include(joinpath(pkgdir(SpaceTimeCorrelations), "test", "synthetic.jl"))   # toy-data generators
+```
+
 ```@example frames
 using SpaceTimeCorrelations, Random
 L = 30.0

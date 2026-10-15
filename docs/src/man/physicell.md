@@ -38,9 +38,9 @@ r = spaceTimeCorrelation(Simulation(1); value = :notch, cell_types = ["rgc", "ap
     the value and `ID` out of each snapshot's cell table through Tables.jl (no DataFrames
     dependency) and calls the array method. `SpaceTimeCorrelationsPhysiCellModelManagerExt` only
     builds the `PhysiCellSequence` for a `Simulation` and forwards. The PhysiCellOutput extension
-    is tested against `test/fixtures/physicell_output` (four snapshots of a real run, cell files
-    only); the PCMM one is not tested here, because PCMM would bring a large dependency tree into
-    the test environment.
+    is tested against toy data written in the PhysiCell output format at test time
+    (`test/physicell_output.jl`); the PCMM one is not tested here, because PCMM would bring a
+    large dependency tree into the test environment.
 
 !!! tierjournal "2026-10-08 — PhysiCell support as extensions, dead cells out by default"
     Decided: PhysiCellOutput and PhysiCellModelManager are weak dependencies, each reached through

@@ -5,9 +5,6 @@ SpaceTimeCorrelations
 spaceTimeCorrelation(::AbstractVector, ::AbstractVector)
 spaceTimeCorrelation(::AbstractVector)
 SpaceTimeCorrelationResult
-noiseFrames
-bumpFrames
-frameTables
 ```
 
 ## PhysiCell output

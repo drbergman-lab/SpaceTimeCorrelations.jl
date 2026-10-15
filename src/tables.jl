@@ -18,13 +18,11 @@ spaceTimeCorrelation(::AbstractVector, ::AbstractVector)).
 
 # Examples
 ```jldoctest
-julia> frames = frameTables(noiseFrames(; n = 100, nframes = 2));
-
-julia> keys(frames[1])
-(:id, :x, :y, :value)
+julia> frames = [(id = [1, 2, 3], x = [0.0, 1.0, 0.0], y = [0.0, 0.0, 1.0], value = [1.0, 2.0, 3.0]),
+                 (id = [1, 2, 3], x = [0.0, 1.0, 0.0], y = [0.0, 0.0, 1.0], value = [3.0, 2.0, 1.0])];
 
 julia> r = spaceTimeCorrelation(frames; value = :value, position = (:x, :y), id = :id,
-                                lags = 0:1, dr = 1, rmax = 3);
+                                lags = 0:1, dr = 1, rmax = 2);
 
 julia> r.frame
 :tissue

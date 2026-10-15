@@ -4,12 +4,13 @@ One estimator: the joint space-time correlation `C(Δx, Δy, Δt)` of a continuo
 on moving, tracked agents (agent-based model output). The entry point is `spaceTimeCorrelation`,
 with an array method in [`src/estimator.jl`](src/estimator.jl) and a per-frame-tables method in
 [`src/tables.jl`](src/tables.jl) that calls it. It returns a `SpaceTimeCorrelationResult`
-([`src/result.jl`](src/result.jl)). Toy-data generators with known answers live in
-[`src/synthetic.jl`](src/synthetic.jl).
+([`src/result.jl`](src/result.jl)). Toy-data generators with known answers live with the tests in
+[`test/synthetic.jl`](test/synthetic.jl); they are not package API, and the docs examples
+`include` them.
 
 Start with [`docs/src/dev/architecture.md`](docs/src/dev/architecture.md): module map, the data
 flow through one call, invariants. Design decisions are `!!! tierjournal` blocks on the manual
-pages, collected into `docs/src/dev/journal.md`. The original brief is [`HANDOFF.md`](HANDOFF.md).
+pages, collected into `docs/src/dev/journal.md`.
 
 ## Commands
 
@@ -30,10 +31,12 @@ The docs build needs at least one commit (Documenter reads `HEAD`), not a remote
 - **Scope is one estimator.** No plotting, no significance tests, no PCF/Ripley's K, no
   wavelets/DMD/optical flow. PhysiCell support lives only in the extensions. Plotting
   dependencies are out.
-- **Runtime dependencies stay minimal:** NearestNeighbors, Tables, Statistics, StaticArrays,
-  Random. PhysiCellOutput and PhysiCellModelManager are `[weakdeps]` reached through `ext/`,
-  never `[deps]`. GeoStatsFunctions, GeoTables, Meshes and PhysiCellOutput are test-only
+- **Runtime dependencies stay minimal:** NearestNeighbors, Tables, Statistics, StaticArrays.
+  PhysiCellOutput and PhysiCellModelManager are `[weakdeps]` reached through `ext/`, never
+  `[deps]`. GeoStatsFunctions, GeoTables, MAT, Meshes, PhysiCellOutput and Random are test-only
   (`[extras]`).
+- **No simulation data in the repo.** PhysiCell test input is generated at test time by
+  `test/physicell_output.jl`.
 - **PhysiCellModelManager stays out of the test environment.** It conflicts with
   GeoStatsFunctions (Optim 1 vs 2) and is heavy; its extension is a one-line forward to the
   PhysiCellOutput one, which is tested.
@@ -62,7 +65,7 @@ The docs build needs at least one commit (Documenter reads `HEAD`), not a remote
 
 ## Renaming the package
 
-The name is a placeholder. To rename: change `name` in `Project.toml`, rename
+If the package is ever renamed: change `name` in `Project.toml`, rename
 `src/SpaceTimeCorrelations.jl` and the `module` line, then replace the string everywhere:
 
 ```bash

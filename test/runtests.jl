@@ -3,6 +3,8 @@ using SpaceTimeCorrelations
 using Random
 using StaticArrays
 
+include("synthetic.jl")   # toy-data generators with known answers
+
 # Location of the correlation peak at lag slot k: the C-weighted centroid of the bins within half
 # of the maximum, among bins with enough pairs to trust. More stable than argmax on a broad peak.
 function peak(r, k; mincount = 200)

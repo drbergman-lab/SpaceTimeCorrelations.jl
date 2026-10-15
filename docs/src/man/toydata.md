@@ -1,7 +1,8 @@
 # Toy data
 
 Two generators produce frames with a known answer, for exploring what the maps look like before
-trusting them on real output.
+trusting them on real output. They live with the tests, in `test/synthetic.jl`, and load with
+`include(joinpath(pkgdir(SpaceTimeCorrelations), "test", "synthetic.jl"))`.
 
 !!! tierbrief
     `noiseFrames` gives the null case. `bumpFrames` gives Gaussian bumps of expression that can
@@ -28,6 +29,11 @@ trusting them on real output.
     | Turnover | `turnover = f` | tissue frame runs; counts fall with lag |
 
     The test suite checks each row.
+
+```@setup toy
+using SpaceTimeCorrelations
+include(joinpath(pkgdir(SpaceTimeCorrelations), "test", "synthetic.jl"))   # toy-data generators
+```
 
 ```@example toy
 using SpaceTimeCorrelations, Random

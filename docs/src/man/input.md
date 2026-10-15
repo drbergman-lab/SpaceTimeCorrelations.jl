@@ -8,6 +8,11 @@ Pass either per-frame arrays of positions and values, or a vector of per-frame t
     `positions[t]` is a vector of points or a matrix with one column per agent; `values[t]` and
     `ids[t]` are vectors with one entry per agent.
 
+```@setup input
+using SpaceTimeCorrelations
+include(joinpath(pkgdir(SpaceTimeCorrelations), "test", "synthetic.jl"))   # toy-data generators
+```
+
 ```@example input
 using SpaceTimeCorrelations, Random
 data = bumpFrames(; n = 500, L = 20.0, nframes = 3, rng = Xoshiro(3))

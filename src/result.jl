@@ -18,9 +18,11 @@ The output of [`spaceTimeCorrelation`](@ref).
 
 # Examples
 ```jldoctest
-julia> data = noiseFrames(; n = 200, nframes = 3);
+julia> positions = [[(0.0, 0.0), (1.0, 0.0), (0.0, 1.0)], [(0.0, 0.0), (1.0, 0.0), (0.0, 1.0)]];
 
-julia> r = spaceTimeCorrelation(data.positions, data.values; lags = 0:1, dr = 0.5, rmax = 2);
+julia> values = [[1.0, 2.0, 3.0], [3.0, 2.0, 1.0]];
+
+julia> r = spaceTimeCorrelation(positions, values; lags = 0:1, dr = 0.5, rmax = 2);
 
 julia> size(r.C), r.centers[5], r.frame
 ((9, 9, 2), 0.0, :lab)
